@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% block title %}Recent{% endblock %}
+{% block content %}
+<script>
+ 
+function load_pagelist_cb(data) { 
+    $('#pagelist_wrap').html(data);
+    $('.toc').hide();
+}
+
+function load_pagelist(page_num) { 
+    $.get('{{conf.web_prefix}}/pagelist-'+page_num+'.html',
+        load_pagelist_cb,
+        "html");
+}
+
+$(document).ready(function() { 
+    load_pagelist(1);
+});
+
+</script>
+
+<div id="pagelist_wrap"></div>
+
+{% endblock %}

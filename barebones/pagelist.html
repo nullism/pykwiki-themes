@@ -1,0 +1,27 @@
+{% include 'pagelist-pager.html' %}
+
+{% for page in pages %}
+<div>
+    <h2>
+        <a href="{{page.url}}">{{page.title}}</a> 
+        - {{page.mdate_string}}
+    </h2>
+    {% if post_type == 'full' %}
+        <div>
+        {{page.target_text}}
+        </div>
+    {% elif post_type == 'preview' %}
+        <div class="preview">
+        {{page.target_text}}
+        </div>
+    {% else %}
+        <div class="blurb">
+        {{page.blurb}}
+        </div>
+    {% endif %}
+</div>
+{% endfor %}
+
+{% include 'pagelist-pager.html' %}
+
+
