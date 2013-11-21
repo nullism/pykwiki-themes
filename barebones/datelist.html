@@ -1,11 +1,11 @@
-<ul>
-{% for pd in ctrl.page_dates %}
-    <li>{{pd}}
-        <ul>
-    {% for p in ctrl.get_pages(filters=[['mdate_string','==',pd]], sort_key='title', direction='asc') %}
-        <li><a href="{{p.url}}">{{p.title}}</a></li>
-    {% endfor %}
-        </ul>
-    </li>
+{% for pd in ctrl.get_post_dates(limit=20) %}
+    <h2>{{pd}}</h2>
+       <ul>
+        {% for p in ctrl.get_posts(filters=[['mdate_string','==',pd]], sort_key='title', direction='asc') %}
+            <li><a href="{{p.url}}">{{p.title}}</a></li>
+        {% endfor %}
+       </ul>
 {% endfor %}
-</ul>
+
+
+

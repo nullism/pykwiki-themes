@@ -7,8 +7,7 @@
 {% block content %}
 <p>
 {% for t in post.tags %}
-    <a class="label label-info"
-        href="/{{conf.search_tpl}}?t={{t}}">{{t}} <b class="glyphicon glyphicon-tag"></b></a>
+    <a href="/{{conf.search_tpl}}?t={{t}}">{{t}} <b class="glyphicon glyphicon-tag"></b></a>
 {% endfor %}
 </p>
 {{post.target_text|safe}}
