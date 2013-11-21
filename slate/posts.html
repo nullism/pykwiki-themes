@@ -3,23 +3,23 @@
 {% block content %}
 <script>
  
-function load_pagelist_cb(data) { 
-    $('#pagelist_wrap').html(data);
+function load_postlist_cb(data) { 
+    $('#postlist_wrap').html(data);
     $('.toc').hide();
 }
 
-function load_pagelist(page_num) { 
-    $.get('{{conf.web_prefix}}/pagelist-'+page_num+'.html',
-        load_pagelist_cb,
+function load_postlist(page_num) { 
+    $.get('{{conf.web_prefix}}/postlist-'+page_num+'.html',
+        load_postlist_cb,
         "html");
 }
 
 $(document).ready(function() { 
-    load_pagelist(1);
+    load_postlist(1);
 });
 
 </script>
 
-<div id="pagelist_wrap"></div>
+<div id="postlist_wrap"></div>
 
 {% endblock %}

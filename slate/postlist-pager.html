@@ -1,0 +1,13 @@
+<ul class="pagination">
+  {% if this_page_num > 1 %}
+  <li><a href="#" onclick="load_postlist({{this_page_num-1}}); return false;">&laquo;</a></li>
+  {% endif %}
+  {% for i in range(page_count) %}
+    <li {% if i+1 == this_page_num %}class="active"{% endif %}>
+        <a href="#" onclick="load_postlist({{i+1}}); return false;">{{i+1}}</a>
+    </li>
+  {% endfor %}
+  {% if this_page_num < page_count %}
+  <li><a href="#" onclick="load_postlist({{this_page_num+1}}); return false;">&raquo;</a></li>
+  {% endif %}
+</ul>
