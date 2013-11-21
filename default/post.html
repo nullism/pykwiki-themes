@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block meta %}
+<meta name="description" content="{{post.description}}">
+<meta name="keywords" content="{{post.keywords}}">
+{% endblock %}
+{% block title %}{{post.title}}{% endblock %}
+{% block content %}
+<p>
+{% for t in post.tags %}
+    <a class="label label-default"
+        href="/{{conf.search_tpl}}?t={{t}}">{{t}} <b class="glyphicon glyphicon-tag"></b></a>
+{% endfor %}
+</p>
+{{post.target_text|safe}}
+{% endblock %}

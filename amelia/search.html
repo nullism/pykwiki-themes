@@ -3,17 +3,17 @@
 {% block content %}
 <script>
 var idx = null;
-var page_data = null;
+var post_data = null;
 var shown_ids = [];
-var page_tpl = null;
+var post_tpl = null;
 
-function clear_pages() { 
+function clear_posts() { 
     shown_ids = [];
-    $('#pages').html('');
+    $('#posts').html('');
 }    
 
 function no_results() { 
-    $('#pages').html('<p>No results</p>');
+    $('#posts').html('<p>No results</p>');
 }
 
 function sort_by_frequency(arr) {
@@ -38,7 +38,7 @@ function get_param(variable) {
     return false;
 }
 
-function list_page_by_id(id) {
+function list_post_by_id(id) {
     id = id.toString();
     if(shown_ids.indexOf(id) != -1) { 
         return false;
@@ -48,21 +48,21 @@ function list_page_by_id(id) {
         return false;
     }
     shown_ids.push(id);
-    var page = page_data.info[file];
-    html = page_tpl({'pg':page});
-    $('#pages').append(html);
+    var post = post_data.info[file];
+    html = post_tpl({'post':post});
+    $('#posts').append(html);
 }
 
-function list_pages_by_tag(tag) { 
-    clear_pages();
+function list_posts_by_tag(tag) { 
+    clear_posts();
     for(var i=0; i<idx.tags[tag].length; i++) { 
-        list_page_by_id(idx.tags[tag][i]);
+        list_post_by_id(idx.tags[tag][i]);
     }
     $('#results').html('Results for tag "'+tag+'"');
 }
 
-function list_pages_by_query(search) {
-    clear_pages(); 
+function list_posts_by_query(search) {
+    clear_posts(); 
     search = search.toLowerCase();
     search = search.replace(/\'/,'');
     search = search.replace(/[^a-z0-9\-]/g, ' ');
@@ -78,7 +78,7 @@ function list_pages_by_query(search) {
     }
     to_show = sort_by_frequency(to_show);
     for(var i=0; i<to_show.length; i++) { 
-        list_page_by_id(to_show[i]);
+        list_post_by_id(to_show[i]);
     }
     if(to_show.length < 1) { 
         no_results();
@@ -88,34 +88,34 @@ function list_pages_by_query(search) {
 
 function index_cb(data) { 
     idx = data;
-    $.get('{{conf.web_prefix}}/{{conf.page_data_file}}',
+    $.get('{{conf.web_prefix}}/{{conf.post_data_file}}',
         function(data) { 
             if(data) {
-                page_data_cb(data);                
+                post_data_cb(data);                
             }
         }
     ,"json");
 }
-function page_data_cb(data) { 
-    $('#pages').html('Search index loaded');
+function post_data_cb(data) { 
+    $('#posts').html('Search index loaded');
     $('#taglist').show('fast');
-    page_data = data;
-    page_tpl = Mustache.compile($('#search_result_tpl').html());
+    post_data = data;
+    post_tpl = Mustache.compile($('#search_result_tpl').html());
     var q = get_param('q');
     if(q) { 
-        list_pages_by_query(q);
+        list_posts_by_query(q);
         return;
     }
     var t = get_param('t');
     if(t) { 
-        list_pages_by_tag(t);
+        list_posts_by_tag(t);
     }
 }
 
 
 $(document).ready(function() { 
     // Get the search index file
-    $('#pages').html('Loading search index...');
+    $('#posts').html('Loading search index...');
     $.get('{{conf.web_prefix}}/{{conf.index_file}}',
         function(data) { 
             if(data) {
@@ -135,7 +135,7 @@ $(document).ready(function() {
         <span class="input-group-btn">
         <button class="btn btn-primary"
             id="search_button"
-            onclick="list_pages_by_query($('#search_text').val())">
+            onclick="list_posts_by_query($('#search_text').val())">
             <span class="glyphicon glyphicon-search"></span>
         </button>
         </span>
@@ -148,11 +148,11 @@ $(document).ready(function() {
 <div class="col-sm-9">
     <div id="taglist" style="display:none;">
     {% for t in ctrl.tags %}
-        <a class="label label-info" href="#" onclick="list_pages_by_tag('{{t|e}}'); return false;">{{t}} <b class="glyphicon glyphicon-tag"></b></a>
+        <a class="label label-default" href="#" onclick="list_posts_by_tag('{{t|e}}'); return false;">{{t}} <b class="glyphicon glyphicon-tag"></b></a>
     {% endfor %}
     </div>
     <h2 id="results">Results</h2>
-    <div id="pages"></div>
+    <div id="posts"></div>
 </div>
 {% include 'jstemplates.html' %}
 {% endblock %}
