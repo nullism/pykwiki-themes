@@ -1,0 +1,17 @@
+{% raw %}
+
+<script id="post_tpl" type="text/template">
+<h2><a href="{{post.url}}">{{post.title}}</a> 
+    <span class="text-muted pull-right">{{post.mdate_string}}</span>
+</h2>
+<p>{{post.blurb}} &mdash; <small class="text-muted">{{post.author}}</small></p>
+</script>
+
+<script id="search_result_tpl" type="text/template">
+<h3><a href="{{post.url}}">{{post.title}}</a> 
+    <span class="text-muted pull-right">{{post.mdate_string}}</span>
+</h3>
+<p>{{post.blurb}} &mdash; <small class="text-muted">{{post.author}}</small></p>
+</script>
+
+{% endraw %}

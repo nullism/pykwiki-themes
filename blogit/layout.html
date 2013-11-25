@@ -7,7 +7,6 @@
     {% endblock %}
     <title>{% block title %}Stuff{% endblock %} | {{conf.site.title}}</title>
     <link rel="stylesheet" href="{{conf.web_prefix}}/static/bootstrap3/css/bootstrap.css">
-    <link rel="stylesheet" href="{{conf.web_prefix}}/static/bootstrap3/css/bootstrap-theme.css">
     <link rel="stylesheet" href="{{conf.web_prefix}}/static/codehilite/manni.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <style type="text/css">
@@ -36,6 +35,17 @@
         margin-left: 10px;
     }
 
+    .header { 
+        text-align: center;
+        background: {{topt.header_background_color|default('#000')}};
+    }
+
+    .post-item { 
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+    }
+
     .link_section {
         padding: 3px;
         margin: 0px; 
@@ -44,10 +54,10 @@
 
     .toc { 
         float: right;
-        border: 2px solid #efefef;
+        border: 1px solid #f5f5f5;
         background: #f5f5f5;
         padding: 5px;
-        border-radius: 3px;
+        border-radius: 10px;
         color: #999;
     }
     .toc ul, .toc li, .toc ul li { 
@@ -110,10 +120,15 @@
 <!--// END Google analytics //-->
 {% endif %}
 
-
+<div class="header">
+{% if topt.header_image %}
+<img src="{{topt.header_image}}" class="img-responsive" style="margin: auto;" />
+{% endif %}
 {{ ctrl.theme_menu }}
+</div>
+
 <div id="wrap">
-<div class="container" style="padding-top: 60px;">
+<div class="container">
 {% block content %}
 {% endblock %}
 </div>

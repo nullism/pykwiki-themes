@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+{% block title %}Page {{this_page_num}}{% endblock %}
+{% block content %}
+<div class="row">
+
+<div class="col-sm-8">
+
+    {% include 'postlist-pager.html' %}
+
+    {% for post in posts %}
+    <div class="post-item" id="post-{{post.title|idsafe}}">
+        <h2>
+                <a href="{{post.url}}">{{post.title}}</a> 
+                <span class="pull-right text-muted">{{post.mdate_string}}</span>
+        </h2>
+        {% if post_type == 'full' %}
+            {{post.target_text}}
+        {% elif post_type == 'preview' %}
+            <div class="htmltruncate-md">
+                {{post.target_text}}
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="{{post.url}}" class="btn btn-default">...</a>
+        {% else %}
+            {{post.blurb}}
+            <a href="{{post.url}}" class="btn">Read more</a>
+        {% endif %}
+    <small class="text-muted">Posted in </small>
+        {% for t in post.tags %}
+        <a class="label label-default" href="{{conf.web_prefix}}/search.html?t={{t}}">{{t}}</a>
+        {% endfor %}
+    {% if topt.disqus_short_name %}
+    <a href="{{post.url}}#comments">Comment</a>
+    {% endif %}
+    </div>
+    {% endfor %}
+
+    {% include 'postlist-pager.html' %}
+
+</div>
+
+<div class="col-sm-4">
+  <div class="panel panel-default">
+    <div class="panel-heading">On this page</div>
+    <div class="panel-body">
+    <ul>
+    {% for post in posts %}
+    <li>
+        <a href="#post-{{post.title|idsafe}}">{{post.title}}</a>
+    </li>
+    {% endfor %}
+    </ul>
+    </div>
+  </div>
+</div>
+
+</div><!-- end row -->
+{% endblock %}

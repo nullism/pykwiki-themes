@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% block title %}Recent{% endblock %}
+{% block content %}
+<script>
+$(document).ready(function() { 
+   window.location = "{{conf.web_prefix}}/postlist-1.html"; 
+});
+
+</script>
+
+<a href="{{conf.web_prefix}}/postlist-1.html" class="btn btn-lg btn-primary">Read Posts</a>
+
+
+{% endblock %}

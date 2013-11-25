@@ -1,0 +1,12 @@
+# Copyright date that appears at the bottom of each page
+copyright_date: 2013
+# Default bootstrap navbar inversion
+invert_navbar: true
+# Disqus short name. If present, it will attempt to enable commenting
+#   on post pages. 
+disqus_short_name: null
+# Header image, either null or /url/of/image.png
+header_image: null
+# The colors should be in quotes, like "#336699" or "red"
+menu_background_color: "#000"
+header_background_color: "#000"

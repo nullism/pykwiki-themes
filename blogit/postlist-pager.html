@@ -1,0 +1,17 @@
+<ul class="pagination">
+  {% if this_page_num > 1 %}
+  <li><a href="{{conf.web_prefix}}/postlist-{{this_page_num-1}}.html">&laquo;</a></li>
+  {% else %}
+  <li class="disabled"><a href="#" onclick="return false;">&laquo;</a></li>
+  {% endif %}
+  {% for i in range(page_count) %}
+    <li {% if i+1 == this_page_num %}class="active"{% endif %}>
+        <a href="{{conf.web_prefix}}/postlist-{{i+1}}.html">{{i+1}}</a>
+    </li>
+  {% endfor %}
+  {% if this_page_num < page_count %}
+  <li><a href="{{conf.web_prefix}}/postlist-{{this_page_num+1}}.html">&raquo;</a></li>
+  {% else %}
+  <li class="disabled"><a href="#" onclick="return false;">&raquo;</a></li>
+  {% endif %}
+</ul>
